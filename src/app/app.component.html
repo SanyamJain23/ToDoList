@@ -1,0 +1,40 @@
+<h1>To Do List</h1>
+
+<div class="todos">
+
+  <div>
+  <form (submit)="addTodo($event)">
+  <input  [(ngModel)]="newTodo" (keyup.enter)="newTodo=''" class="textfield" name="newTodo" placeholder="What's new to do" required>
+    <button  type="submit" >Add Todo</button>
+  </form>
+  </div>
+
+  <h3 class="td" [hidden]="newTodo" >
+    Type in a new todo
+  </h3>
+
+  <h3 [hidden]="!newTodo">
+    
+    Typing: {{ newTodo }}
+  </h3>
+
+  <ul>
+  <li class="lists" *ngFor="let todo of todos; let i=index">
+    <input type="checkbox" class="checkbox" [(ngModel)]="todo.completed" required />
+  <span style="font-size: xx-large; margin-left: 10px;" *ngIf="!todo.isEditing"(click)="toggleTodo(i)"  [ngClass]="{'checked': todo.completed}">{{ todo.newTodo }}</span> &nbsp;
+  <input *ngIf="todo.isEditing" (input)="updateValue=$event.target.value" class="textfield" required placeholder="Edit your todo" >
+  
+  <button (click)="updateTodo(i,updateValue)" class="save-icon">Save</button>
+  
+  <button  (click)="deleteTodo(i)"  class="delete-icon">Delete</button>
+  
+  
+
+    </li>
+    </ul>
+
+    <div class="mtop20">
+  <button (click)="deleteSelectedTodos()">Delete Selected</button>
+  </div>
+
+</div>
